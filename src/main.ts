@@ -9,13 +9,17 @@ import { processMultipleSettings, processSingleSetting } from "@useCase";
     const multipleResult = await processMultipleSettings(processTemplates, processFunctions);
 
     if (singleResult || multipleResult) {
-      core.info("result returned successfully");
+      core.info("Result returned successfully:");
+      core.info(`singleResult: ${JSON.stringify(singleResult)}`);
+      core.info(`multipleResult: ${JSON.stringify(multipleResult)}`);
     } else {
-      core.error("invalid input");
+      core.error("Invalid input. Results:");
+      core.error(`singleResult: ${JSON.stringify(singleResult)}`);
+      core.error(`multipleResult: ${JSON.stringify(multipleResult)}`);
     }
   } catch (error) {
     const err = error as Error;
-    core.setFailed(err);
+    core.setFailed(err.message);
     core.error(err.stack || "");
   }
 })();
